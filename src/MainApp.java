@@ -26,8 +26,6 @@ public class MainApp extends Application {
         launch(args);
     }
 
-    String path = "videos/fishes.mp4";
-
     @Override
     public void start(Stage primaryStage) {
 
@@ -71,7 +69,7 @@ public class MainApp extends Application {
 
         launch.setOnAction(event -> {
             Stage secondaryStage = new Stage();
-            secondaryStage.setScene(Viewer.Video());
+            secondaryStage.setScene(Viewer.Video(videopath.getText()));
             secondaryStage.setFullScreen(true);
             secondaryStage.show();
         });

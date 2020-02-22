@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.swing.text.View;
+import java.io.File;
 
 public class Viewer {
     private static int screenHeight, screenWidth, size;
@@ -12,8 +13,8 @@ public class Viewer {
         throw new NotImplementedException();
     }
 
-    public static Scene Video() {
-        return null;
+    public static Scene Video(String filePath) {
+        return new Video(screenWidth, screenHeight, size, filePath);
     }
 
     public static void setScreenWidth(int width) {
