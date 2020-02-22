@@ -1,12 +1,15 @@
 package Conversion;
 
 import javafx.scene.Scene;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import javax.swing.text.View;
 
 public class Viewer {
-    static int height;
+    private static int screenHeight, screenWidth, size;
 
-    public static Scene Mathematica(int screenWidth, int screenHeight, int baseWidth, int baseHeight) {
-        return null;
+    public static Scene Mathematica() {
+        throw new NotImplementedException();
     }
 
     public static Scene Video() {
@@ -14,6 +17,14 @@ public class Viewer {
     }
 
     public static void setScreenWidth(int width) {
+        Viewer.screenWidth = width;
+    }
 
+    public static void setScreenHeight(int height) {
+        Viewer.screenHeight = height;
+    }
+
+    public static void setBase(int size) {
+        Viewer.size = size;
     }
 }
