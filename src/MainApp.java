@@ -1,5 +1,6 @@
 import Conversion.FourDisplay;
 import Conversion.MediaHolder;
+import Conversion.STLImport;
 import Conversion.Viewer;
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -20,6 +21,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.ArrayList;
 
 
 public class MainApp extends Application {
@@ -143,7 +145,7 @@ public class MainApp extends Application {
 
     }
 
-    private Scene buildViewer(String type, String path){
+    private Scene buildViewer(String type, String path, ArrayList<STLImport> modelList){
         Viewer.setScreenWidth(screenWidth);
         Viewer.setScreenHeight(screenHeight);
         Viewer.setBase(baseSquare);
