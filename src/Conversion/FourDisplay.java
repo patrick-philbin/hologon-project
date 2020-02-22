@@ -33,7 +33,7 @@ public class FourDisplay extends Pane {
 
 
 
-        top.getTransforms().add(new Rotate(90, ));
+        top.getTransforms().add(new Rotate(90));
 
         top.getTransforms();
     }
