@@ -39,14 +39,23 @@ public class OneModel {
         root.getChildren().add(camera);
 
         for(STLImport stlImport: imports) {
-            MeshView coin = new MeshView(stlImport.getMesh());
-            coin.setDrawMode(DrawMode.FILL);
-            PhongMaterial material = new PhongMaterial();
-            material.setDiffuseColor(Color.GOLDENROD);
-            material.setSpecularColor(Color.GOLD);
-            coin.setCullFace(CullFace.BACK);
+            if(stlImport.getEnabled()) {
 
-            coin.setMaterial(material);
+                MeshView coin = new MeshView(stlImport.getMesh());
+                coin.setDrawMode(DrawMode.FILL);
+                PhongMaterial material = new PhongMaterial();
+                material.setDiffuseColor(stlImport.getColor());
+                material.setSpecularColor(stlImport.getColor());
+                coin.setCullFace(CullFace.BACK);
+                coin.setMaterial(material);
+                coin.getTransforms().add(new Translate(
+                        stlImport.getX(),
+                        stlImport.getY(),
+                        stlImport.getZ()
+                ));
+
+                root.getChildren().add(coin);
+            }
         }
 
         // Use a SubScene

@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class ModelDisplay extends Pane {
 
     private boolean play = true;
-    private boolean ctrl = false;
+    private boolean p = false;
     private boolean z = false;
 
     private boolean dragging = false;
@@ -40,7 +40,7 @@ public class ModelDisplay extends Pane {
     private double originalTranslateX = 0;
     private double originalTranslateY = 0;
 
-    private double rotateXMomentum, rotateYMomentum;
+    private double rotateXMomentum, rotateYMomentum, panXMomentum, panYMomentum, zoomMomentum;
 
     private double friction = .98;
 
@@ -85,12 +85,6 @@ public class ModelDisplay extends Pane {
         Timeline manual = new Timeline();
         manual.setCycleCount(Animation.INDEFINITE);
         manual.getKeyFrames().add(new KeyFrame(Duration.millis(17), event -> {
-            //double trueRotateX = Math.cos(Math.toRadians(rotateY.getAngle())) * rotateXMomentum / 60.;
-            //double trueRotateZ = Math.sin(Math.toRadians(rotateY.getAngle())) * rotateXMomentum / 60.;
-
-            //rotateX.setAngle(rotateX.getAngle() + trueRotateX);
-            //rotateZ.setAngle(rotateZ.getAngle() + trueRotateZ);
-
             if(rotateX.getAngle() > 90) {
                 rotateX.setAngle(90);
             }
@@ -102,8 +96,15 @@ public class ModelDisplay extends Pane {
             rotateY.setAngle(rotateY.getAngle() + rotateYMomentum / 60.);
             rotateX.setAngle(rotateX.getAngle() + rotateXMomentum / 60.);
 
+            translate.setX(translate.getX() + panXMomentum / 60.);
+            translate.setY(translate.getY() + panYMomentum / 60.);
+            translate.setZ(translate.getZ() + zoomMomentum / 60.);
+
             rotateXMomentum *= friction;
             rotateYMomentum *= friction;
+            panXMomentum *= friction;
+            panYMomentum *= friction;
+            zoomMomentum *= friction;
         }));
 
         this.setOnKeyPressed(event -> {
@@ -120,16 +121,16 @@ public class ModelDisplay extends Pane {
                     automatic.play();
                 }
                 play = !play;
-            } else if (event.getCode() == KeyCode.CONTROL) {
-                ctrl = true;
+            } else if (event.getCode() == KeyCode.P) {
+                p = true;
             } else if (event.getCode() == KeyCode.Z) {
                 z = true;
             }
         });
 
         this.setOnKeyReleased(event -> {
-            if(event.getCode() == KeyCode.CONTROL) {
-                ctrl = false;
+            if(event.getCode() == KeyCode.P) {
+                p = false;
             } else if (event.getCode() == KeyCode.Z) {
                 z = false;
             }
@@ -137,12 +138,23 @@ public class ModelDisplay extends Pane {
 
         this.setOnScroll(event -> {
             if(event.getDeltaX() != 0) {
-                rotateXMomentum += event.getDeltaX() / Math.abs(event.getDeltaX()) * 50.;
-                System.out.println(rotateXMomentum);
+                double magnitude = event.getDeltaX() / Math.abs(event.getDeltaX()) * 50.;
+                if(p && !z) {
+                    panXMomentum += magnitude;
+                } else if (!p && !z) {
+                    panYMomentum += magnitude;
+                }
             }
 
             if(event.getDeltaY() != 0) {
-                rotateYMomentum += event.getDeltaY() / Math.abs(event.getDeltaY()) * 50.;
+                double magnitude = event.getDeltaY() / Math.abs(event.getDeltaY()) * 50.;
+                if(z && !p) {
+                    zoomMomentum += magnitude;
+                } else if(p && !z) {
+                    panYMomentum += magnitude;
+                } else if (!p && !z) {
+                    rotateYMomentum += magnitude;
+                }
             }
 
             /*
