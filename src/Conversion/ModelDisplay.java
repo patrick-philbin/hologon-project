@@ -87,11 +87,11 @@ public class ModelDisplay extends Pane {
                 rotateX.setAngle(-90);
             }*/
 
-            rotateY.setAngle(rotateY.getAngle() + rotateYMomentum / 6000.);
+            rotateY.setAngle(rotateY.getAngle() + rotateYMomentum / 1200.);
             rotateX.setAngle(rotateX.getAngle() + rotateXMomentum / 600.);
 
-            translate.setX(translate.getX() + panXMomentum / 36000.);
-            translate.setY(translate.getY() + panYMomentum / 36000.);
+            translate.setX(translate.getX() + panXMomentum / 36000.* 2.);
+            translate.setY(translate.getY() + panYMomentum / 36000. * 2.);
             //translate.setZ(translate.getZ() + zoomMomentum / 600.);
 
             rotateXMomentum *= friction;
