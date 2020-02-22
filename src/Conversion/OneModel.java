@@ -48,6 +48,11 @@ public class OneModel {
                 material.setSpecularColor(stlImport.getColor());
                 coin.setCullFace(CullFace.BACK);
                 coin.setMaterial(material);
+                coin.getTransforms().add(new Translate(
+                        stlImport.getX(),
+                        stlImport.getY(),
+                        stlImport.getZ()
+                ));
 
                 root.getChildren().add(coin);
             }
