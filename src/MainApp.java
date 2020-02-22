@@ -44,15 +44,20 @@ public class MainApp extends Application {
         VBox resolution = new VBox();
         resolution.getChildren().add(new Text("Resolution"));
         HBox resEntry = new HBox();
+        resEntry.setAlignment(Pos.CENTER);
         TextField screenWidthPx = new TextField();
         TextField screenHeightPx = new TextField();
+        screenWidthPx.setAlignment(Pos.BASELINE_RIGHT);
         resEntry.getChildren().addAll(screenWidthPx, new Text("x"), screenHeightPx, new Text("px"));
         resolution.getChildren().add(resEntry);
+        resolution.setAlignment(Pos.CENTER);
 
         VBox videoBox = new VBox();
         videoBox.getChildren().add(new Text("Video Filepath"));
         TextField videopath = new TextField("videos/fishes.mp4");
+        videopath.setMaxWidth(350);
         videoBox.getChildren().add(videopath);
+        videoBox.setAlignment(Pos.CENTER);
 
         Button launch = new Button("Launch");
 
