@@ -1,9 +1,7 @@
 package Conversion;
 
-import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.input.KeyCode;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -15,19 +13,38 @@ public class Video extends Scene {
 
     private int innerSize;
 
+    MediaView[] mediaViews;
+
+    boolean play = true;
+
     public Video(int width, int height, int innerSize, String filePath) {
         super(new FourDisplay(width, height, innerSize), width, height);
 
         this.innerSize = innerSize;
 
-        ((FourDisplay)this.getRoot()).setTop(makeMediaView(filePath));
-        ((FourDisplay)this.getRoot()).setBottom(makeMediaView(filePath));
-        ((FourDisplay)this.getRoot()).setLeft(makeMediaView(filePath));
-        ((FourDisplay)this.getRoot()).setRight(makeMediaView(filePath));
+        mediaViews = new MediaView[]{makeMediaView(filePath), makeMediaView(filePath), makeMediaView(filePath), makeMediaView(filePath)};
+
+        ((FourDisplay)this.getRoot()).setTop(mediaViews[0]);
+        ((FourDisplay)this.getRoot()).setBottom(mediaViews[1]);
+        ((FourDisplay)this.getRoot()).setLeft(mediaViews[2]);
+        ((FourDisplay)this.getRoot()).setRight(mediaViews[3]);
 
         ((FourDisplay)this.getRoot()).Construct();
 
-
+        this.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.SPACE) {
+                if (play) {
+                    for (int i = 0; i < 4; i++) {
+                        mediaViews[i].getMediaPlayer().pause();
+                    }
+                } else {
+                    for (int i = 0; i < 4; i++) {
+                        mediaViews[i].getMediaPlayer().play();
+                    }
+                }
+                play = !play;
+            }
+        });
     }
 
     private MediaView makeMediaView(String filePath) {
