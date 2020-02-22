@@ -138,7 +138,7 @@ public class ModelDisplay extends Pane {
             if(event.getDeltaY() != 0) {
                 double magnitude = event.getDeltaY() / Math.abs(event.getDeltaY()) * 50.;
                 if(z && !p) {
-                    //zoomMomentum += magnitude;
+                    translate.setZ(translate.getZ() + magnitude);
                 } else if(p && !z) {
                     //panYMomentum += magnitude;
                     translate.setY(translate.getY() + magnitude/900.);

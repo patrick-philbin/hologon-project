@@ -31,7 +31,7 @@ public class OneModel {
                 rotateZ,
                 translate,
                 new Translate(0, 0, -150));
-        camera.setFarClip(2000);
+        camera.setFarClip(10000);
         camera.setNearClip(.1);
 
         // Build the Scene Graph
