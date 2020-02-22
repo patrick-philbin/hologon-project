@@ -34,12 +34,6 @@ public class ModelDisplay extends Pane {
     private boolean p = false;
     private boolean z = false;
 
-    private boolean dragging = false;
-    private double dragX = 0;
-    private double dragY = 0;
-    private double originalTranslateX = 0;
-    private double originalTranslateY = 0;
-
     private double rotateXMomentum, rotateYMomentum, panXMomentum, panYMomentum, zoomMomentum;
 
     private double friction = .98;
@@ -142,7 +136,7 @@ public class ModelDisplay extends Pane {
                 if(p && !z) {
                     panXMomentum += magnitude;
                 } else if (!p && !z) {
-                    panYMomentum += magnitude;
+                    rotateYMomentum += magnitude;
                 }
             }
 
@@ -153,47 +147,10 @@ public class ModelDisplay extends Pane {
                 } else if(p && !z) {
                     panYMomentum += magnitude;
                 } else if (!p && !z) {
-                    rotateYMomentum += magnitude;
+                    rotateXMomentum += magnitude;
                 }
             }
 
-            /*
-            System.out.println("Delta X: " + event.getDeltaX()/10);
-            System.out.println("Delta Y: " + event.getDeltaY());
-            if(ctrl && !z) {
-                if(event.getDeltaY() != 0) {
-                    rotateZ.setAngle(rotateZ.getAngle() + event.getDeltaY() / Math.abs(event.getDeltaY()) * 10);
-                }
-            } else if (z && ! ctrl) {
-                if(event.getDeltaY() != 0) {
-                    translate.setZ(translate.getZ() + event.getDeltaY() / Math.abs(event.getDeltaY()) * 10);
-                }
-            } else {
-                if(event.getDeltaY() != 0) {
-                    rotateY.setAngle(rotateY.getAngle() + event.getDeltaY() / Math.abs(event.getDeltaY()) * 10.);
-                }
-                if(event.getDeltaX() != 0) {
-                    rotateX.setAngle(rotateX.getAngle() + event.getDeltaX() / Math.abs(event.getDeltaX()) * 10.);
-                }
-            }*/
-        });
-
-        this.setOnMouseDragged(event -> {
-            if(!dragging) {
-                dragX = event.getX();
-                dragY = event.getY();
-                originalTranslateX = translate.getX();
-                originalTranslateX = translate.getY();
-                dragging = true;
-            }
-            translate.setX(originalTranslateX + event.getX() - dragX);
-            translate.setY(originalTranslateY + event.getY() - dragY);
-        });
-
-        this.setOnMouseReleased(event -> {
-            if(dragging) {
-                dragging = false;
-            }
         });
     }
 }
