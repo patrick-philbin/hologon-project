@@ -19,7 +19,8 @@ import javafx.util.Duration;
 
 public class OneModel {
 
-    public static SubScene MakeModel(TriangleMesh mesh, double yAngle, int width, int height) {
+    public static SubScene MakeModel(TriangleMesh mesh, double yAngle, int width, int height, Rotate rotateX,
+                                     Rotate rotateY, Rotate rotateZ) {
         MeshView coin = new MeshView(mesh);
         coin.setDrawMode(DrawMode.FILL);
         PhongMaterial material = new PhongMaterial();
@@ -27,23 +28,15 @@ public class OneModel {
         material.setSpecularColor(Color.GOLD);
         coin.setMaterial(material);
 
-        //Setup animation
-        Rotate rotate = new Rotate(0, Rotate.Y_AXIS);
-
         //Make camera
         PerspectiveCamera camera = new PerspectiveCamera(true);
         camera.getTransforms().addAll (
                 new Rotate(yAngle, Rotate.Y_AXIS),
-                rotate,
+                rotateY,
+                rotateX,
+                rotateZ,
                 new Translate(0, 0, -150));
         camera.setFarClip(2000);
-
-        Timeline timeline = new Timeline();
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(5000),
-                new KeyValue(rotate.angleProperty(), rotate.angleProperty().doubleValue() + 360.))
-        );
-        timeline.play();
 
         // Build the Scene Graph
         Group root = new Group();

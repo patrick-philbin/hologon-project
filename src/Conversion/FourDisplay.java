@@ -23,7 +23,7 @@ public class FourDisplay extends BorderPane {
         this.width = width;
         this.innerSize = innerSize;
         this.size = Math.min(height, width);
-        this.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        this.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         pane = new Pane();
         pane.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         this.setCenter(pane);

@@ -52,7 +52,7 @@ public class MainApp extends Application {
 
         VBox innerBox = new VBox();
         innerBox.getChildren().add(new Text("Inner Box Size"));
-        TextField innerBoxSize = new TextField("300");
+        TextField innerBoxSize = new TextField("400");
         innerBoxSize.setMaxWidth(100);
         innerBoxSize.setAlignment(Pos.CENTER);
         innerBox.getChildren().add(innerBoxSize);
@@ -72,8 +72,8 @@ public class MainApp extends Application {
         base.setCenter(menuElements);
         Scene menu = new Scene(base, 500, 500);
 
-        screenWidthPx.setText("700");
-        screenHeightPx.setText("700");
+        screenWidthPx.setText("1600");
+        screenHeightPx.setText("1200");
 
         //Creating the second stage for viewing the video
         launch.setOnAction(event -> {
@@ -93,6 +93,9 @@ public class MainApp extends Application {
                     this.start(primaryStage);
                 }
             });
+
+            videoView.getRoot().requestFocus();
+
             secondaryStage.setScene(videoView);
             secondaryStage.setFullScreen(true);
             secondaryStage.show();

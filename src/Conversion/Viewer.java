@@ -19,7 +19,8 @@ public class Viewer {
     }
 
     public static Scene Model(String filePath) {
-        return new Scene(new ModelDisplay(screenWidth, screenHeight, size, filePath), screenWidth, screenHeight);
+        Scene scene = new Scene(new ModelDisplay(screenWidth, screenHeight, size, filePath), screenWidth, screenHeight);
+        return scene;
     }
 
     public static void setScreenWidth(int width) {
