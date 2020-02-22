@@ -4,12 +4,10 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.scene.Group;
-import javafx.scene.PerspectiveCamera;
-import javafx.scene.Scene;
-import javafx.scene.SubScene;
+import javafx.scene.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.CullFace;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
@@ -24,8 +22,10 @@ public class OneModel {
         MeshView coin = new MeshView(mesh);
         coin.setDrawMode(DrawMode.FILL);
         PhongMaterial material = new PhongMaterial();
-        material.setDiffuseColor(Color.GOLD);
+        material.setDiffuseColor(Color.GOLDENROD);
         material.setSpecularColor(Color.GOLD);
+        coin.setCullFace(CullFace.BACK);
+
         coin.setMaterial(material);
 
         //Make camera
@@ -38,6 +38,7 @@ public class OneModel {
                 translate,
                 new Translate(0, 0, -150));
         camera.setFarClip(2000);
+        camera.setNearClip(.1);
 
         // Build the Scene Graph
         Group root = new Group();
@@ -45,10 +46,9 @@ public class OneModel {
         root.getChildren().add(coin);
 
         // Use a SubScene
-        SubScene subScene = new SubScene(root, width,height);
+        SubScene subScene = new SubScene(root, width,height,true, SceneAntialiasing.BALANCED);
         subScene.setFill(Color.BLACK);
         subScene.setCamera(camera);
-
         return subScene;
     }
 }

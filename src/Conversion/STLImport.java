@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.TriangleMesh;
 import javafx.scene.text.Text;
 
 
@@ -17,6 +18,7 @@ public class STLImport extends HBox {
     private TextField y = new TextField("0");
     private TextField z = new TextField("0");
     private TextField color = new TextField("Orange");
+    private TriangleMesh mesh;
 
     public STLImport(){
         //Setting baseline stuff
@@ -67,5 +69,13 @@ public class STLImport extends HBox {
 
     public Color getColor(){
         return Color.web(color.getText());
+    }
+
+    public TriangleMesh getMesh() {
+        return this.mesh;
+    }
+
+    public void setMesh(TriangleMesh mesh) {
+        this.mesh = mesh;
     }
 }

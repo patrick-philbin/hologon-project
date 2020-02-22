@@ -5,6 +5,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.swing.text.View;
 import java.io.File;
+import java.util.ArrayList;
 
 public class Viewer {
     private static int screenHeight, screenWidth, size;
@@ -18,8 +19,8 @@ public class Viewer {
         return scene;
     }
 
-    public static Scene Model(String filePath) {
-        Scene scene = new Scene(new ModelDisplay(screenWidth, screenHeight, size, filePath), screenWidth, screenHeight);
+    public static Scene Model(ArrayList<STLImport> list) {
+        Scene scene = new Scene(new ModelDisplay(screenWidth, screenHeight, size, list), screenWidth, screenHeight);
         return scene;
     }
 
