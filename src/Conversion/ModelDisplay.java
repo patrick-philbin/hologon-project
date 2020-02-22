@@ -79,19 +79,19 @@ public class ModelDisplay extends Pane {
         Timeline manual = new Timeline();
         manual.setCycleCount(Animation.INDEFINITE);
         manual.getKeyFrames().add(new KeyFrame(Duration.millis(17), event -> {
-            if(rotateX.getAngle() > 90) {
+            /*if(rotateX.getAngle() > 90) {
                 rotateX.setAngle(90);
             }
 
             if(rotateX.getAngle() < -90) {
                 rotateX.setAngle(-90);
-            }
+            }*/
 
             rotateY.setAngle(rotateY.getAngle() + rotateYMomentum / 600.);
             rotateX.setAngle(rotateX.getAngle() + rotateXMomentum / 600.);
 
-            translate.setX(translate.getX() + panXMomentum / 600.);
-            translate.setY(translate.getY() + panYMomentum / 600.);
+            translate.setX(translate.getX() + panXMomentum / 3600.);
+            translate.setY(translate.getY() + panYMomentum / 3600.);
             //translate.setZ(translate.getZ() + zoomMomentum / 600.);
 
             rotateXMomentum *= friction;
@@ -111,6 +111,8 @@ public class ModelDisplay extends Pane {
                     rotateY.setAngle(0);
                     rotateX.setAngle(0);
                     rotateZ.setAngle(0);
+                    translate.setX(0);
+                    translate.setY(0);
                     manual.stop();
                     automatic.play();
                 }
