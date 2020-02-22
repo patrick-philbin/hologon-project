@@ -30,6 +30,7 @@ public class FourDisplay extends BorderPane {
         BorderPane.setAlignment(pane, Pos.CENTER);
         pane.setMaxWidth(size);
         pane.setMaxHeight(size);
+        this.setPrefSize(width, height);
     }
 
     public void setBottom(MediaView node) {
