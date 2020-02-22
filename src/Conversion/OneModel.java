@@ -15,18 +15,12 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+
 public class OneModel {
 
-    public static SubScene MakeModel(TriangleMesh mesh, double yAngle, int width, int height, Rotate rotateX,
+    public static SubScene MakeModel(ArrayList<STLImport> imports, double yAngle, int width, int height, Rotate rotateX,
                                      Rotate rotateY, Rotate rotateZ, Translate translate) {
-        MeshView coin = new MeshView(mesh);
-        coin.setDrawMode(DrawMode.FILL);
-        PhongMaterial material = new PhongMaterial();
-        material.setDiffuseColor(Color.GOLDENROD);
-        material.setSpecularColor(Color.GOLD);
-        coin.setCullFace(CullFace.BACK);
-
-        coin.setMaterial(material);
 
         //Make camera
         PerspectiveCamera camera = new PerspectiveCamera(true);
@@ -43,7 +37,17 @@ public class OneModel {
         // Build the Scene Graph
         Group root = new Group();
         root.getChildren().add(camera);
-        root.getChildren().add(coin);
+
+        for(STLImport stlImport: imports) {
+            MeshView coin = new MeshView(stlImport.getMesh());
+            coin.setDrawMode(DrawMode.FILL);
+            PhongMaterial material = new PhongMaterial();
+            material.setDiffuseColor(Color.GOLDENROD);
+            material.setSpecularColor(Color.GOLD);
+            coin.setCullFace(CullFace.BACK);
+
+            coin.setMaterial(material);
+        }
 
         // Use a SubScene
         SubScene subScene = new SubScene(root, width,height,true, SceneAntialiasing.BALANCED);

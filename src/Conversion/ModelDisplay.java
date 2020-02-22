@@ -65,10 +65,10 @@ public class ModelDisplay extends Pane {
         Translate translate = new Translate(0,0,0);
 
         FourDisplay fourDisplay = new FourDisplay(width, height, innerSize);
-        fourDisplay.setTopNode(OneModel.MakeModel(mesh, 0., innerSize, trueHeight, rotateX, rotateY, rotateZ, translate));
-        fourDisplay.setRightNode(OneModel.MakeModel(mesh, 90., innerSize, trueHeight, rotateX, rotateY, rotateZ, translate));
-        fourDisplay.setBottomNode(OneModel.MakeModel(mesh, 180., innerSize, trueHeight, rotateX, rotateY, rotateZ, translate));
-        fourDisplay.setLeftNode(OneModel.MakeModel(mesh, 270., innerSize, trueHeight, rotateX, rotateY, rotateZ, translate));
+        fourDisplay.setTopNode(OneModel.MakeModel(stlImports, 0., innerSize, trueHeight, rotateX, rotateY, rotateZ, translate));
+        fourDisplay.setRightNode(OneModel.MakeModel(stlImports, 90., innerSize, trueHeight, rotateX, rotateY, rotateZ, translate));
+        fourDisplay.setBottomNode(OneModel.MakeModel(stlImports, 180., innerSize, trueHeight, rotateX, rotateY, rotateZ, translate));
+        fourDisplay.setLeftNode(OneModel.MakeModel(stlImports, 270., innerSize, trueHeight, rotateX, rotateY, rotateZ, translate));
 
         fourDisplay.Construct();
         this.getChildren().add(fourDisplay);
