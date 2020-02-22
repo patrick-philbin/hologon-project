@@ -92,7 +92,7 @@ public class ModelDisplay extends Pane {
 
             translate.setX(translate.getX() + panXMomentum / 600.);
             translate.setY(translate.getY() + panYMomentum / 600.);
-            translate.setZ(translate.getZ() + zoomMomentum / 600.);
+            //translate.setZ(translate.getZ() + zoomMomentum / 600.);
 
             rotateXMomentum *= friction;
             rotateYMomentum *= friction;
