@@ -11,10 +11,10 @@ import javafx.scene.transform.Rotate;
 
 public class FourDisplay extends BorderPane {
 
-    private MediaView top, bottom, left, right;
+    private Node top, bottom, left, right;
     private StackPane topPane, bottomPane, leftPane, rightPane;
 
-    private int width, height, innerSize;
+    private int width, height, innerSize, size;
 
     private Pane pane;
 
@@ -22,12 +22,14 @@ public class FourDisplay extends BorderPane {
         this.height = height;
         this.width = width;
         this.innerSize = innerSize;
-        this.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        this.size = Math.min(height, width);
+        this.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         pane = new Pane();
+        pane.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         this.setCenter(pane);
         BorderPane.setAlignment(pane, Pos.CENTER);
-        pane.setMaxWidth(Math.min(width, height));
-        pane.setMaxHeight(Math.min(width,height));
+        pane.setMaxWidth(size);
+        pane.setMaxHeight(size);
     }
 
     public void setBottom(MediaView node) {
@@ -60,7 +62,7 @@ public class FourDisplay extends BorderPane {
         //rightPane.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
         //bottomPane.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        pane.setPrefSize(Math.min(height, width), Math.min(height, width));
+        pane.setPrefSize(size, size);
 
         pane.getChildren().add(topPane);
         pane.getChildren().add(bottomPane);
@@ -73,7 +75,7 @@ public class FourDisplay extends BorderPane {
         right.prefWidth(innerSize);
         left.prefWidth(innerSize);
 
-        int actualHeight = ((Math.min(width, height) - innerSize)/2);
+        int actualHeight = ((size - innerSize)/2);
 
         //top.prefHeight(actualHeight);
         //bottom.prefHeight(actualHeight);
