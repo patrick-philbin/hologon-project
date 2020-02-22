@@ -22,6 +22,7 @@ import javafx.scene.shape.Mesh;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Transform;
 import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
@@ -31,6 +32,7 @@ public class ModelDisplay extends Pane {
 
     private boolean play = true;
     private boolean ctrl = false;
+    private boolean z = false;
 
     public ModelDisplay(int width, int height, int innerSize, String modelLocation) {
         this.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -45,12 +47,13 @@ public class ModelDisplay extends Pane {
         Rotate rotateY = new Rotate(0, Rotate.Y_AXIS);
         Rotate rotateX = new Rotate(0, Rotate.X_AXIS);
         Rotate rotateZ = new Rotate(0, Rotate.Z_AXIS);
+        Translate translate = new Translate(0,0,0);
 
         FourDisplay fourDisplay = new FourDisplay(width, height, innerSize);
-        fourDisplay.setTopNode(OneModel.MakeModel(mesh, 0., innerSize, trueHeight, rotateX, rotateY, rotateZ));
-        fourDisplay.setRightNode(OneModel.MakeModel(mesh, 90., innerSize, trueHeight, rotateX, rotateY, rotateZ));
-        fourDisplay.setBottomNode(OneModel.MakeModel(mesh, 180., innerSize, trueHeight, rotateX, rotateY, rotateZ));
-        fourDisplay.setLeftNode(OneModel.MakeModel(mesh, 270., innerSize, trueHeight, rotateX, rotateY, rotateZ));
+        fourDisplay.setTopNode(OneModel.MakeModel(mesh, 0., innerSize, trueHeight, rotateX, rotateY, rotateZ, translate));
+        fourDisplay.setRightNode(OneModel.MakeModel(mesh, 90., innerSize, trueHeight, rotateX, rotateY, rotateZ, translate));
+        fourDisplay.setBottomNode(OneModel.MakeModel(mesh, 180., innerSize, trueHeight, rotateX, rotateY, rotateZ, translate));
+        fourDisplay.setLeftNode(OneModel.MakeModel(mesh, 270., innerSize, trueHeight, rotateX, rotateY, rotateZ, translate));
 
         fourDisplay.Construct();
         this.getChildren().add(fourDisplay);
@@ -78,21 +81,29 @@ public class ModelDisplay extends Pane {
                 play = !play;
             } else if (event.getCode() == KeyCode.CONTROL) {
                 ctrl = true;
+            } else if (event.getCode() == KeyCode.Z) {
+                z = true;
             }
         });
 
         this.setOnKeyReleased(event -> {
             if(event.getCode() == KeyCode.CONTROL) {
                 ctrl = false;
+            } else if (event.getCode() == KeyCode.Z) {
+                z = false;
             }
         });
 
         this.setOnScroll(event -> {
             System.out.println("Delta X: " + event.getDeltaX()/10);
             System.out.println("Delta Y: " + event.getDeltaY());
-            if(ctrl) {
+            if(ctrl && !z) {
                 if(event.getDeltaY() != 0) {
                     rotateZ.setAngle(rotateZ.getAngle() + event.getDeltaY() / Math.abs(event.getDeltaY()) * 10);
+                }
+            } else if (z && ! ctrl) {
+                if(event.getDeltaY() != 0) {
+                    translate.setZ(translate.getZ() + event.getDeltaY() / Math.abs(event.getDeltaY()) * 10);
                 }
             } else {
                 if(event.getDeltaY() != 0) {

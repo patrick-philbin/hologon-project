@@ -20,7 +20,7 @@ import javafx.util.Duration;
 public class OneModel {
 
     public static SubScene MakeModel(TriangleMesh mesh, double yAngle, int width, int height, Rotate rotateX,
-                                     Rotate rotateY, Rotate rotateZ) {
+                                     Rotate rotateY, Rotate rotateZ, Translate translate) {
         MeshView coin = new MeshView(mesh);
         coin.setDrawMode(DrawMode.FILL);
         PhongMaterial material = new PhongMaterial();
@@ -35,6 +35,7 @@ public class OneModel {
                 rotateY,
                 rotateX,
                 rotateZ,
+                translate,
                 new Translate(0, 0, -150));
         camera.setFarClip(2000);
 
