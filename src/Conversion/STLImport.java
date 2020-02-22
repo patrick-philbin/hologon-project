@@ -24,11 +24,11 @@ public class STLImport extends HBox {
         //Setting baseline stuff
         this.setAlignment(Pos.CENTER);
         enabled.setSelected(true);
-        path.setMaxWidth(100);
-        x.setMaxWidth(20);
-        y.setMaxWidth(20);
-        z.setMaxWidth(20);
-        color.setMaxWidth(75);
+        path.setMaxWidth(150);
+        x.setMaxWidth(30);
+        y.setMaxWidth(30);
+        z.setMaxWidth(30);
+        color.setMaxWidth(60);
         this.setSpacing(10);
 
         HBox pathContainer = new HBox();
@@ -45,6 +45,8 @@ public class STLImport extends HBox {
 
         HBox colorContainer = new HBox();
         colorContainer.getChildren().addAll(new Text("Color:"), color);
+
+        this.getChildren().addAll(enabled, pathContainer, xContainer, yContainer, zContainer, colorContainer);
     }
 
     public String getPath(){

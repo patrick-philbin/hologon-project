@@ -82,17 +82,33 @@ public class MainApp extends Application {
         innerBox.getChildren().add(innerBoxSize);
         innerBox.setAlignment(Pos.CENTER);
 
-        VBox videoBox = new VBox();
-        videoBox.getChildren().add(new Text("Filepath"));
+        VBox vidPathBox = new VBox();
+        vidPathBox.getChildren().add(new Text("Filepath"));
         TextField filepath = new TextField("No File Type Selected!");
         filepath.setEditable(false);
         filepath.setMaxWidth(350);
-        videoBox.getChildren().add(filepath);
-        videoBox.setAlignment(Pos.CENTER);
+        vidPathBox.getChildren().add(filepath);
+        vidPathBox.setAlignment(Pos.CENTER);
+
+        VBox STLBox = new VBox();
+        STLBox.setSpacing(5);
+        STLBox.setAlignment(Pos.CENTER);
+        HBox STLheader = new HBox();
+        STLheader.setAlignment(Pos.CENTER);
+        Button addSTL = new Button("+");
+        STLheader.getChildren().addAll(new Text("Import STL Files: "), addSTL);
+        STLBox.getChildren().add(STLheader);
+        ArrayList<STLImport> stlImports = new ArrayList<>();
+        addSTL.setOnAction(event -> {
+            STLImport element = new STLImport();
+            STLBox.getChildren().add(element);
+            stlImports.add(element);
+        });
+
 
         Button launch = new Button("Launch");
 
-        menuElements.getChildren().addAll(fileTypeHolder, resolution, innerBox, videoBox, launch);
+        menuElements.getChildren().addAll(fileTypeHolder, resolution, innerBox, vidPathBox, launch);
         base.setTop(toolbar);
         base.setCenter(menuElements);
         Scene menu = new Scene(base, 500, 500);
@@ -100,16 +116,17 @@ public class MainApp extends Application {
         //Setting toggle changes for filetype
         fileType.selectedToggleProperty().addListener((ov, toggle, new_toggle) -> {
             if(new_toggle == null){
+                menuElements.getChildren().set(3, vidPathBox);
                 filepath.setEditable(false);
                 filepath.setText("No File Type Selected!");
             }
             else if(new_toggle.getUserData().equals("Video")){
+                menuElements.getChildren().set(3, vidPathBox);
                 filepath.setEditable(true);
                 filepath.setText("videos/fishes.mp4");
             }
             else if(new_toggle.getUserData().equals("Model")){
-                filepath.setEditable(true);
-                filepath.setText("STL/WayfindersCoin.stl");
+                menuElements.getChildren().set(3, STLBox);
             }
         });
 
@@ -120,7 +137,7 @@ public class MainApp extends Application {
             screenHeight = Integer.parseInt(screenHeightPx.getText());
             baseSquare = Integer.parseInt(innerBoxSize.getText());
 
-            Scene videoView = buildViewer((String)fileType.getSelectedToggle().getUserData(), filepath.getText());
+            Scene videoView = buildViewer((String)fileType.getSelectedToggle().getUserData(), filepath.getText(), stlImports);
             videoView.setOnKeyPressed(e -> {
                 if(e.getCode().equals(KeyCode.ESCAPE)){
                     secondaryStage.close();
@@ -153,7 +170,7 @@ public class MainApp extends Application {
             return Viewer.Video(path);
         }
         else if(type.equals("Model")){
-            return Viewer.Model(path);
+            return Viewer.Model(modelList);
         }
         else{
             return null;
