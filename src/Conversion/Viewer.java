@@ -6,7 +6,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import javax.swing.text.View;
 
 public class Viewer {
-    private static int screenHeight, screenWidth, baseHeight, baseWidth;
+    private static int screenHeight, screenWidth, size;
 
     public static Scene Mathematica() {
         throw new NotImplementedException();
@@ -24,11 +24,7 @@ public class Viewer {
         Viewer.screenHeight = height;
     }
 
-    public static void setBaseHeight(int height) {
-        Viewer.baseHeight = height;
-    }
-
-    public static void setBaseWidth(int width) {
-        Viewer.baseWidth = width;
+    public static void setBase(int size) {
+        Viewer.size = size;
     }
 }

@@ -1,11 +1,14 @@
 package Conversion;
 
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 
 public class FourDisplay extends Pane {
 
-    public FourDisplay(Media media, int width, int height) {
+    Node top, bottom, left, right;
+
+    public FourDisplay(int width, int height, int innerWidth, int innerHeight) {
         MediaHolder left = new MediaHolder(media.getSource(), -90, width/3, height/3);
         MediaHolder right = new MediaHolder(media.getSource(), 90, width/3, height/3);
         MediaHolder top = new MediaHolder(media.getSource(), 180, width/3, height/3);
