@@ -78,7 +78,19 @@ public class MainApp extends Application {
             Viewer.setScreenWidth(Integer.parseInt(screenWidthPx.getText()));
             Viewer.setScreenHeight(Integer.parseInt(screenHeightPx.getText()));
             Viewer.setBase(Integer.parseInt(innerBoxSize.getText()));
-            secondaryStage.setScene(Viewer.Video(videopath.getText()));
+            Scene videoView = Viewer.Video(videopath.getText());
+            videoView.setOnKeyPressed(e -> {
+                if(e.getCode().equals(KeyCode.ESCAPE)){
+                    secondaryStage.close();
+                    try {
+                        this.stop();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    this.start(primaryStage);
+                }
+            });
+            secondaryStage.setScene(videoView);
             secondaryStage.setFullScreen(true);
             secondaryStage.show();
         });
