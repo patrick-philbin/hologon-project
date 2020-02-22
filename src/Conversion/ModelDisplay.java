@@ -34,7 +34,7 @@ public class ModelDisplay extends Pane {
     private boolean p = false;
     private boolean z = false;
 
-    private double rotateXMomentum, rotateYMomentum, panXMomentum, panYMomentum, zoomMomentum;
+    private double rotateXMomentum, rotateYMomentum;
 
     private double friction = .98;
 
@@ -90,15 +90,8 @@ public class ModelDisplay extends Pane {
             rotateY.setAngle(rotateY.getAngle() + rotateYMomentum / 1200.);
             rotateX.setAngle(rotateX.getAngle() + rotateXMomentum / 600.);
 
-            translate.setX(translate.getX() + panXMomentum / 36000.* 2.);
-            translate.setY(translate.getY() + panYMomentum / 36000. * 2.);
-            //translate.setZ(translate.getZ() + zoomMomentum / 600.);
-
             rotateXMomentum *= friction;
             rotateYMomentum *= friction;
-            panXMomentum *= friction;
-            panYMomentum *= friction;
-            zoomMomentum *= friction;
         }));
 
         this.setOnKeyPressed(event -> {
@@ -136,7 +129,7 @@ public class ModelDisplay extends Pane {
             if(event.getDeltaX() != 0) {
                 double magnitude = event.getDeltaX() / Math.abs(event.getDeltaX()) * 50.;
                 if(p && !z) {
-                    panXMomentum += magnitude;
+                    translate.setX(translate.getX() + magnitude);
                 } else if (!p && !z) {
                     rotateYMomentum += magnitude;
                 }
@@ -145,9 +138,10 @@ public class ModelDisplay extends Pane {
             if(event.getDeltaY() != 0) {
                 double magnitude = event.getDeltaY() / Math.abs(event.getDeltaY()) * 50.;
                 if(z && !p) {
-                    zoomMomentum += magnitude;
+                    //zoomMomentum += magnitude;
                 } else if(p && !z) {
-                    panYMomentum += magnitude;
+                    //panYMomentum += magnitude;
+                    translate.setY(translate.getY() + magnitude);
                 } else if (!p && !z) {
                     rotateXMomentum += magnitude;
                 }
