@@ -18,7 +18,7 @@ public class MainApp extends Application {
         launch(args);
     }
 
-    String path = "Videos/fish.mp4";
+    String path = "videos/fishes.mp4";
 
     @Override
     public void start(Stage primaryStage) {
