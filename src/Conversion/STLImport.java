@@ -24,6 +24,9 @@ public class STLImport extends HBox {
         enabled.setSelected(true);
         path.setMaxWidth(100);
         x.setMaxWidth(20);
+        y.setMaxWidth(20);
+        z.setMaxWidth(20);
+        color.setMaxWidth(75);
         this.setSpacing(10);
 
         HBox pathContainer = new HBox();
@@ -31,5 +34,38 @@ public class STLImport extends HBox {
 
         HBox xContainer = new HBox();
         xContainer.getChildren().addAll(new Text("X:"), x);
+
+        HBox yContainer = new HBox();
+        yContainer.getChildren().addAll(new Text("Y:"), y);
+
+        HBox zContainer = new HBox();
+        zContainer.getChildren().addAll(new Text("Z:"), z);
+
+        HBox colorContainer = new HBox();
+        colorContainer.getChildren().addAll(new Text("Color:"), color);
+    }
+
+    public String getPath(){
+        return path.getText();
+    }
+
+    public boolean getEnabled(){
+        return enabled.isSelected();
+    }
+
+    public int getX(){
+        return Integer.parseInt(x.getText());
+    }
+
+    public int getY(){
+        return Integer.parseInt(y.getText());
+    }
+
+    public int getZ(){
+        return Integer.parseInt(z.getText());
+    }
+
+    public Color getColor(){
+        return Color.web(color.getText());
     }
 }
