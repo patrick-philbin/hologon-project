@@ -8,6 +8,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -33,6 +34,12 @@ public class ModelDisplay extends Pane {
     private boolean play = true;
     private boolean ctrl = false;
     private boolean z = false;
+
+    private boolean dragging = false;
+    private double dragX = 0;
+    private double dragY = 0;
+    private double originalTranslateX = 0;
+    private double originalTranslateY = 0;
 
     public ModelDisplay(int width, int height, int innerSize, String modelLocation) {
         this.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -112,6 +119,24 @@ public class ModelDisplay extends Pane {
                 if(event.getDeltaX() != 0) {
                     rotateX.setAngle(rotateX.getAngle() + event.getDeltaX() / Math.abs(event.getDeltaX()) * 10.);
                 }
+            }
+        });
+
+        this.setOnMouseDragged(event -> {
+            if(!dragging) {
+                dragX = event.getX();
+                dragY = event.getY();
+                originalTranslateX = translate.getX();
+                originalTranslateX = translate.getY();
+                dragging = true;
+            }
+            translate.setX(originalTranslateX + event.getX() - dragX);
+            translate.setY(originalTranslateY + event.getY() - dragY);
+        });
+
+        this.setOnMouseReleased(event -> {
+            if(dragging) {
+                dragging = false;
             }
         });
     }
