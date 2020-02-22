@@ -70,7 +70,9 @@ public class STLImport extends HBox {
     }
 
     public Color getColor(){
-        return Color.web(color.getText());
+        String c = color.getText();
+        c = c.replaceAll(" ", "");
+        return Color.web(c);
     }
 
     public TriangleMesh getMesh() {
