@@ -16,7 +16,10 @@ public class Viewer {
     public static Scene Video(String filePath) {
         Scene scene = new Scene(new Video(screenWidth, screenHeight, size, filePath), screenWidth, screenHeight);
         return scene;
-        //return new Video(700, 700, 200, filePath);
+    }
+
+    public static Scene Model(String filePath) {
+        return new Scene(new ModelDisplay(screenWidth, screenHeight, size, filePath), screenWidth, screenHeight);
     }
 
     public static void setScreenWidth(int width) {

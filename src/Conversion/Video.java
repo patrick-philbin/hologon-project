@@ -1,9 +1,6 @@
 package Conversion;
 
-import javafx.scene.Scene;
 import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -11,7 +8,6 @@ import javafx.scene.media.MediaView;
 import javafx.util.Duration;
 
 import java.io.File;
-import java.security.Key;
 
 public class Video extends Pane {
 
@@ -33,10 +29,10 @@ public class Video extends Pane {
 
         mediaViews = new MediaView[]{makeMediaView(filePath), makeMediaView(filePath), makeMediaView(filePath), makeMediaView(filePath)};
 
-        fourDisplay.setTop(mediaViews[0]);
-        fourDisplay.setBottom(mediaViews[1]);
-        fourDisplay.setLeft(mediaViews[2]);
-        fourDisplay.setRight(mediaViews[3]);
+        fourDisplay.setTopNode(mediaViews[0]);
+        fourDisplay.setBottomNode(mediaViews[1]);
+        fourDisplay.setLeftNode(mediaViews[2]);
+        fourDisplay.setRightNode(mediaViews[3]);
 
         fourDisplay.Construct();
 

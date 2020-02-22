@@ -60,7 +60,7 @@ public class MainApp extends Application {
 
         VBox videoBox = new VBox();
         videoBox.getChildren().add(new Text("Video Filepath"));
-        TextField videopath = new TextField("videos/fishes.mp4");
+        TextField videopath = new TextField("STL/WayfindersCoin.stl");
         videopath.setMaxWidth(350);
         videoBox.getChildren().add(videopath);
         videoBox.setAlignment(Pos.CENTER);
@@ -72,13 +72,16 @@ public class MainApp extends Application {
         base.setCenter(menuElements);
         Scene menu = new Scene(base, 500, 500);
 
+        screenWidthPx.setText("700");
+        screenHeightPx.setText("700");
+
         //Creating the second stage for viewing the video
         launch.setOnAction(event -> {
             Stage secondaryStage = new Stage();
             Viewer.setScreenWidth(Integer.parseInt(screenWidthPx.getText()));
             Viewer.setScreenHeight(Integer.parseInt(screenHeightPx.getText()));
             Viewer.setBase(Integer.parseInt(innerBoxSize.getText()));
-            Scene videoView = Viewer.Video(videopath.getText());
+            Scene videoView = Viewer.Model(videopath.getText());
             videoView.setOnKeyPressed(e -> {
                 if(e.getCode().equals(KeyCode.ESCAPE)){
                     secondaryStage.close();

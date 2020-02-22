@@ -33,19 +33,19 @@ public class FourDisplay extends BorderPane {
         this.setPrefSize(width, height);
     }
 
-    public void setBottom(MediaView node) {
+    public void setBottomNode(Node node) {
         this.bottom = node;
     }
 
-    public void setTop(MediaView node) {
+    public void setTopNode(Node node) {
         this.top = node;
     }
 
-    public void setRight(MediaView node) {
+    public void setRightNode(Node node) {
         this.right = node;
     }
 
-    public void setLeft(MediaView node) {
+    public void setLeftNode(Node node) {
         this.left = node;
     }
 
