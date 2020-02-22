@@ -1,5 +1,6 @@
 import Conversion.FourDisplay;
 import Conversion.MediaHolder;
+import Conversion.Viewer;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -64,12 +65,8 @@ public class MainApp extends Application {
 
 
         launch.setOnAction(event -> {
-            Media media = new Media(new File(videopath.getText()).toURI().toString());
-            FourDisplay root = new FourDisplay(media, 900, 900);
-            Scene viewScene = new Scene(root, 900, 900);
-            viewScene.setFill(Color.WHITE);
             Stage secondaryStage = new Stage();
-            secondaryStage.setScene(viewScene);
+            secondaryStage.setScene(Viewer.Video());
             secondaryStage.setFullScreen(true);
             secondaryStage.show();
         });
