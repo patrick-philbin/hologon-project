@@ -3,31 +3,38 @@ package Conversion;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
+import javafx.scene.transform.Rotate;
 
 public class FourDisplay extends Pane {
 
     Node top, bottom, left, right;
+    Pane topPane, bottomPane, leftPane, rightPane;
 
-    public FourDisplay(int width, int height, int innerWidth, int innerHeight) {
-        MediaHolder left = new MediaHolder(media.getSource(), -90, width/3, height/3);
-        MediaHolder right = new MediaHolder(media.getSource(), 90, width/3, height/3);
-        MediaHolder top = new MediaHolder(media.getSource(), 180, width/3, height/3);
-        MediaHolder bottom = new MediaHolder(media.getSource(), 0, width/3, height/3);
+    public FourDisplay(int width, int height, int innerSize) {
+        this.setPrefSize(width, height);
 
-        this.getChildren().add(left);
-        this.getChildren().add(right);
         this.getChildren().add(top);
-        this.getChildren().add(bottom);
-        left.setLayoutX(0);
-        left.setLayoutY(height/3.);
+        top.prefWidth(innerSize);
+        bottom.prefWidth(innerSize);
+        right.prefWidth(innerSize);
+        left.prefWidth(innerSize);
 
-        right.setLayoutX(2.*width/3.);
-        right.setLayoutY(height/3.);
+        int actualHeight = ((Math.min(width, height) - innerSize)/2);
 
-        top.setLayoutX(width/3.);
-        top.setLayoutY(0);
+        top.prefHeight(actualHeight);
+        bottom.prefHeight(actualHeight);
+        right.prefHeight(actualHeight);
+        left.prefHeight(actualHeight);
 
-        bottom.setLayoutX(width/3.);
-        bottom.setLayoutY(2.*height/3.);
+        topPane.setPrefSize(innerSize, actualHeight);
+        bottomPane.setPrefSize(innerSize, actualHeight);
+        leftPane.setPrefSize(innerSize, actualHeight);
+        rightPane.setPrefSize(innerSize, actualHeight);
+
+
+
+        top.getTransforms().add(new Rotate(90, ));
+
+        top.getTransforms();
     }
 }
