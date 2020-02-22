@@ -1,51 +1,73 @@
 package Conversion;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.transform.Rotate;
 
-public class FourDisplay extends Pane {
+public class FourDisplay extends BorderPane {
 
-    private Node top, bottom, left, right;
-    private Pane topPane, bottomPane, leftPane, rightPane;
+    private MediaView top, bottom, left, right;
+    private StackPane topPane, bottomPane, leftPane, rightPane;
 
     private int width, height, innerSize;
+
+    private Pane pane;
 
     public FourDisplay(int width, int height, int innerSize) {
         this.height = height;
         this.width = width;
         this.innerSize = innerSize;
         this.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        pane = new Pane();
+        this.setCenter(pane);
+        BorderPane.setAlignment(pane, Pos.CENTER);
+        pane.setMaxWidth(Math.min(width, height));
+        pane.setMaxHeight(Math.min(width,height));
     }
 
-    public void setBottom(Node node) {
+    public void setBottom(MediaView node) {
         this.bottom = node;
     }
 
-    public void setTop(Node node) {
+    public void setTop(MediaView node) {
         this.top = node;
     }
 
-    public void setRight(Node node) {
+    public void setRight(MediaView node) {
         this.right = node;
     }
 
-    public void setLeft(Node node) {
+    public void setLeft(MediaView node) {
         this.left = node;
     }
 
     public void Construct() {
 
-        topPane = new Pane();
-        bottomPane = new Pane();
-        leftPane = new Pane();
-        rightPane = new Pane();
+        topPane = new StackPane();
+        bottomPane = new StackPane();
+        leftPane = new StackPane();
+        rightPane = new StackPane();
 
-        this.setPrefSize(width, height);
+        //Background background = new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY));
 
-        this.getChildren().add(top);
+        //topPane.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        //leftPane.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        //rightPane.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        //bottomPane.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        pane.setPrefSize(Math.min(height, width), Math.min(height, width));
+
+        pane.getChildren().add(topPane);
+        pane.getChildren().add(bottomPane);
+        pane.getChildren().add(rightPane);
+        pane.getChildren().add(leftPane);
+
+
         top.prefWidth(innerSize);
         bottom.prefWidth(innerSize);
         right.prefWidth(innerSize);
@@ -53,10 +75,10 @@ public class FourDisplay extends Pane {
 
         int actualHeight = ((Math.min(width, height) - innerSize)/2);
 
-        top.prefHeight(actualHeight);
-        bottom.prefHeight(actualHeight);
-        right.prefHeight(actualHeight);
-        left.prefHeight(actualHeight);
+        //top.prefHeight(actualHeight);
+        //bottom.prefHeight(actualHeight);
+        //right.prefHeight(actualHeight);
+        //left.prefHeight(actualHeight);
 
         topPane.setPrefSize(innerSize, actualHeight);
         bottomPane.setPrefSize(innerSize, actualHeight);
@@ -68,18 +90,30 @@ public class FourDisplay extends Pane {
         leftPane.getChildren().add(left);
         rightPane.getChildren().add(right);
 
+        StackPane.setAlignment(top, Pos.BOTTOM_CENTER);
+        StackPane.setAlignment(bottom, Pos.BOTTOM_CENTER);
+        StackPane.setAlignment(right, Pos.BOTTOM_CENTER);
+        StackPane.setAlignment(left, Pos.BOTTOM_CENTER);
+
+
+//        top.setLayoutY(topPane.getHeight() - top.getViewport().getHeight());
+//        bottom.setLayoutY(bottomPane.getHeight() - bottom.getViewport().getHeight());
+//        left.setLayoutY(leftPane.getHeight() - left.getViewport().getHeight());
+//        right.setLayoutY(rightPane.getHeight() - right.getViewport().getHeight());
+
         //Rotate and transform each
-        top.setLayoutY(0);
-        top.setLayoutX(actualHeight);
+        topPane.setLayoutY(0);
+        topPane.setLayoutX(actualHeight);
 
-        bottom.setLayoutY(innerSize);
-        bottom.setLayoutX(0);
-        bottom.getTransforms().add(new Rotate(180, innerSize, actualHeight));
+        bottomPane.setLayoutY(innerSize);
+        bottomPane.setLayoutX(actualHeight - innerSize);
+        bottomPane.getTransforms().add(new Rotate(180, innerSize, actualHeight));
 
-        left.getTransforms().add(new Rotate(-90, innerSize, actualHeight));
+        leftPane.setLayoutX(actualHeight - innerSize);
+        leftPane.getTransforms().add(new Rotate(-90, innerSize, actualHeight));
 
-        right.setLayoutX(actualHeight);
-        right.setLayoutY(innerSize);
-        right.getTransforms().add(new Rotate(90, innerSize, actualHeight));
+        rightPane.setLayoutX(actualHeight);
+        rightPane.setLayoutY(innerSize);
+        rightPane.getTransforms().add(new Rotate(90, innerSize, actualHeight));
     }
 }
