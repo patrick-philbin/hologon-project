@@ -129,7 +129,7 @@ public class ModelDisplay extends Pane {
             if(event.getDeltaX() != 0) {
                 double magnitude = event.getDeltaX() / Math.abs(event.getDeltaX()) * 50.;
                 if(p && !z) {
-                    translate.setX(translate.getX() + magnitude);
+                    translate.setX(translate.getX() + magnitude/3600.);
                 } else if (!p && !z) {
                     rotateYMomentum += magnitude;
                 }
@@ -141,7 +141,7 @@ public class ModelDisplay extends Pane {
                     //zoomMomentum += magnitude;
                 } else if(p && !z) {
                     //panYMomentum += magnitude;
-                    translate.setY(translate.getY() + magnitude);
+                    translate.setY(translate.getY() + magnitude/3600.);
                 } else if (!p && !z) {
                     rotateXMomentum += magnitude;
                 }
