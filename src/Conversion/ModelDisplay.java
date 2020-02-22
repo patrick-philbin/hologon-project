@@ -47,10 +47,14 @@ public class ModelDisplay extends Pane {
     public ModelDisplay(int width, int height, int innerSize, ArrayList<STLImport> stlImports) {
         this.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        StlMeshImporter meshImporter = new StlMeshImporter();
-        meshImporter.read(new File(modelLocation));
-        TriangleMesh mesh = meshImporter.getImport();
-        mesh.setVertexFormat(VertexFormat.POINT_TEXCOORD);
+        for(STLImport stlImport : stlImports) {
+            StlMeshImporter meshImporter = new StlMeshImporter();
+            meshImporter.read(new File(stlImport.getPath()));
+            TriangleMesh mesh = meshImporter.getImport();
+            mesh.setVertexFormat(VertexFormat.POINT_TEXCOORD);
+            stlImport.setMesh(mesh);
+        }
+
 
         int size = Math.min(width, height);
         int trueHeight = (size - innerSize)/2;
