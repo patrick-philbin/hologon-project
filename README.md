@@ -1,5 +1,5 @@
 # Project Description
-The Hologon Project is a acrylic hologram projector with a Java application (that's all the code here) that allows users to load videos and 3D models into a projector-ready display. A link to our Devpost for the project can be found (here)[https://devpost.com/software/wonderhack-2020].
+The Hologon Project is a acrylic hologram projector with a Java application (that's all the code here) that allows users to load videos and 3D models into a projector-ready display. A link to our Devpost for the project can be found [here](https://devpost.com/software/wonderhack-2020).
 
 # Inspiration
 We had seen "hologram projects" floating around the internet, but we found that converting your own videos to a format that could be displayed with this homemade projector was difficult given the resources we could find. This inspired us to build our own, larger hologram projector and create an application that would allow the conversion of video and 3D models for display.
