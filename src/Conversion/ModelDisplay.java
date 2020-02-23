@@ -38,6 +38,11 @@ public class ModelDisplay extends Pane {
 
     private double friction = .98;
 
+    private Rotate rotateLeftZ, rotateRightZ, rotateTopZ, rotateBottomZ, rotateY;
+    private Rotate rotateLeftX, rotateRightX, rotateTopX, rotateBottomX;
+
+    private Transform transformRight, transformLeft, transformTop, transformBottom;
+
     public ModelDisplay(int width, int height, int innerSize, ArrayList<STLImport> stlImports) {
         this.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
@@ -53,16 +58,31 @@ public class ModelDisplay extends Pane {
         int size = Math.min(width, height);
         int trueHeight = (size - innerSize)/2;
 
-        Rotate rotateY = new Rotate(0, Rotate.Y_AXIS);
-        Rotate rotateX = new Rotate(0, Rotate.X_AXIS);
-        Rotate rotateZ = new Rotate(0, Rotate.Z_AXIS);
+        rotateY = new Rotate(0, Rotate.Y_AXIS);
+        //Rotate rotateX = new Rotate(0, Rotate.X_AXIS);
+        //Rotate rotateZ = new Rotate(0, Rotate.Z_AXIS);
+
+        rotateBottomX = new Rotate(0, Rotate.X_AXIS);
+        rotateBottomZ = new Rotate(0, Rotate.Z_AXIS);
+
+        rotateTopX = new Rotate(0, Rotate.X_AXIS);
+        rotateTopZ = new Rotate(0, Rotate.Z_AXIS);
+
+        rotateLeftX = new Rotate(0, Rotate.X_AXIS);
+        rotateLeftZ = new Rotate(0, Rotate.Z_AXIS);
+
+        rotateRightX = new Rotate(0, Rotate.X_AXIS);
+        rotateRightZ = new Rotate(0, Rotate.Z_AXIS);
+
+
+
         Translate translate = new Translate(0,0,0);
 
         FourDisplay fourDisplay = new FourDisplay(width, height, innerSize);
-        fourDisplay.setTopNode(OneModel.MakeModel(stlImports, 0., innerSize, trueHeight, rotateX, rotateY, rotateZ, translate));
-        fourDisplay.setRightNode(OneModel.MakeModel(stlImports, 90., innerSize, trueHeight, rotateX, rotateY, rotateZ, translate));
-        fourDisplay.setBottomNode(OneModel.MakeModel(stlImports, 180., innerSize, trueHeight, rotateX, rotateY, rotateZ, translate));
-        fourDisplay.setLeftNode(OneModel.MakeModel(stlImports, 270., innerSize, trueHeight, rotateX, rotateY, rotateZ, translate));
+        fourDisplay.setTopNode(OneModel.MakeModel(stlImports, 0., innerSize, trueHeight, rotateTopX, rotateY, rotateTopZ, translate));
+        fourDisplay.setRightNode(OneModel.MakeModel(stlImports, 90., innerSize, trueHeight, rotateRightZ, rotateY, rotateRightZ, translate));
+        fourDisplay.setBottomNode(OneModel.MakeModel(stlImports, 180., innerSize, trueHeight, rotateBottomX, rotateY, rotateBottomZ, translate));
+        fourDisplay.setLeftNode(OneModel.MakeModel(stlImports, 270., innerSize, trueHeight, rotateLeftX, rotateY, rotateLeftZ, translate));
 
         fourDisplay.Construct();
         this.getChildren().add(fourDisplay);
@@ -87,8 +107,8 @@ public class ModelDisplay extends Pane {
                 rotateX.setAngle(-90);
             }*/
 
-            rotateY.setAngle(rotateY.getAngle() + rotateYMomentum / 1200.);
-            rotateX.setAngle(rotateX.getAngle() + rotateXMomentum / 600.);
+            setYAxis(rotateY.getAngle() + rotateYMomentum / 1200.);
+            setXAxis(rotateTopX.getAngle() + rotateXMomentum / 600.);
 
             rotateXMomentum *= friction;
             rotateYMomentum *= friction;
@@ -101,9 +121,9 @@ public class ModelDisplay extends Pane {
                     automatic.stop();
                     manual.play();
                 } else {
-                    rotateY.setAngle(0);
-                    rotateX.setAngle(0);
-                    rotateZ.setAngle(0);
+                    setYAxis(0);
+                    setZAxis(0);
+                    setXAxis(0);
                     translate.setX(0);
                     translate.setY(0);
                     manual.stop();
@@ -148,5 +168,25 @@ public class ModelDisplay extends Pane {
             }
 
         });
+
+
+    }
+
+    public void setYAxis(double angle) {
+        rotateY.setAngle(angle);
+    }
+
+    public void setZAxis(double angle) {
+        rotateTopZ.setAngle(angle);
+        rotateBottomZ.setAngle(-angle);
+        rotateRightX.setAngle(angle);
+        rotateLeftX.setAngle(-angle);
+    }
+
+    public void setXAxis(double angle) {
+        rotateTopX.setAngle(angle);
+        rotateBottomX.setAngle(-angle);
+        rotateRightZ.setAngle(-angle);
+        rotateLeftZ.setAngle(angle);
     }
 }
